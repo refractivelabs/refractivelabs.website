@@ -10,75 +10,39 @@
   <meta property="og:title" content="Refractive Labs">
   <meta property="og:url" content="https://refractivelabs.com/">
   <meta property="og:type" content="website">
+  <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1013" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <main class="sheet">
-    <div class="frame">
-      <div class="inner">
+  <main class="page">
+    <div class="stage">
+    <figure class="figure" aria-hidden="true">
+      <svg viewBox="0 0 800 400" fill="none">
+        <!-- slab -->
+        <rect class="slab" x="340" y="70" width="120" height="260" rx="2"/>
+        <!-- normal (dotted) -->
+        <line class="normal" x1="300" y1="180" x2="500" y2="180"/>
+        <!-- dispersion fan (faint) -->
+        <line class="ray disp r" x1="460" y1="150" x2="770" y2="54"/>
+        <line class="ray disp g" x1="460" y1="150" x2="770" y2="61"/>
+        <line class="ray disp b" x1="460" y1="150" x2="770" y2="68"/>
+        <!-- main beam: in, inside, out -->
+        <path class="ray beam" d="M40 265.7 L340 180 L460 150 L770 61.4"/>
+      </svg>
+    </figure>
 
-        <header class="masthead">
-          <h1 class="wordmark">
-            <span class="line1">Refractive</span>
-            <span class="line2">Labs</span>
-          </h1>
-          <svg class="mark" viewBox="0 0 100 100" aria-hidden="true">
-            <rect x="6" y="6" width="88" height="88" fill="none" stroke="currentColor" stroke-width="6"/>
-            <path d="M50 22 L78 74 L22 74 Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>
-            <path d="M6 50 L36 50" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
-            <path d="M64 50 L94 40 M64 52 L94 52 M64 54 L94 64" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-        </header>
-
-        <hr>
-
-        <figure class="illustration">
-          <svg viewBox="0 0 600 300" role="img" aria-label="A beam of light entering a prism and dispersing into three rays">
-            <defs>
-              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="1"/>
-              </pattern>
-              <pattern id="hatch2" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-30)">
-                <line x1="0" y1="0" x2="0" y2="9" stroke="currentColor" stroke-width=".8"/>
-              </pattern>
-            </defs>
-            <!-- ground line -->
-            <line x1="40" y1="250" x2="560" y2="250" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="40" y1="256" x2="560" y2="256" stroke="currentColor" stroke-width=".6"/>
-            <!-- incoming beam -->
-            <line x1="40" y1="150" x2="253" y2="150" stroke="currentColor" stroke-width="3"/>
-            <line x1="40" y1="144" x2="250" y2="144" stroke="currentColor" stroke-width=".8"/>
-            <line x1="40" y1="156" x2="256" y2="156" stroke="currentColor" stroke-width=".8"/>
-            <!-- prism -->
-            <path d="M300 60 L400 250 L200 250 Z" fill="url(#hatch2)" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-            <path d="M300 60 L400 250 L300 250 Z" fill="url(#hatch)" stroke="none" opacity=".55"/>
-            <path d="M300 60 L400 250 L200 250 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
-            <!-- internal path -->
-            <line x1="253" y1="150" x2="356" y2="166" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 4"/>
-            <!-- outgoing rays -->
-            <line x1="356" y1="166" x2="560" y2="118" stroke="currentColor" stroke-width="2.4"/>
-            <line x1="356" y1="166" x2="560" y2="176" stroke="currentColor" stroke-width="2.4"/>
-            <line x1="356" y1="166" x2="560" y2="234" stroke="currentColor" stroke-width="2.4"/>
-            <line x1="356" y1="166" x2="560" y2="147" stroke="currentColor" stroke-width=".8"/>
-            <line x1="356" y1="166" x2="560" y2="205" stroke="currentColor" stroke-width=".8"/>
-            <!-- sun / source -->
-            <circle cx="60" cy="150" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
-            <circle cx="60" cy="150" r="5" fill="currentColor"/>
-          </svg>
-        </figure>
-
-        <hr>
-
-        <section class="motto">
-          <p class="est">Est. MMXXVI</p>
-        </section>
-
-      </div>
+    <header class="brand">
+      <h1>Refractive Labs</h1>
+    </header>
     </div>
-    <footer>Refractive Labs, Inc. &copy; <span id="year">2026</span></footer>
+
+    <footer class="foot">
+      <span>&copy; <span id="year">2026</span> Refractive Labs, Inc.</span>
+    </footer>
   </main>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>

@@ -1,75 +1,79 @@
 :root {
-  --paper: #ece4c6;
-  --grid: rgba(0, 0, 0, .06);
-  --ink: #111;
-  --serif: "EB Garamond", "Times New Roman", Times, Georgia, serif;
+  --bg: #f7f6f2;
+  --ink: #14161a;
+  --muted: #8a8f98;
+  --line: #14161a;
+  --slab: rgba(20, 22, 26, .045);
+  --r: #ff5a5f;
+  --g: #3ccf8e;
+  --b: #4d8dff;
+  --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1013;
+    --ink: #eceef2;
+    --muted: #6f7580;
+    --line: #eceef2;
+    --slab: rgba(236, 238, 242, .06);
+  }
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
   margin: 0;
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--serif);
-  background-color: var(--paper);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 12px 12px;
+  font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
 }
-.sheet {
+.page {
   min-height: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  padding: 4vh 6vw 3vh;
+}
+.stage {
+  align-self: center;
   display: flex; flex-direction: column; align-items: center;
-  padding: 1rem .5rem 2rem;
+  gap: 2rem;
+  width: min(100%, 720px);
 }
-.frame {
-  width: 100%; max-width: 640px;
-  border: 6px solid var(--ink);
-  padding: 4px;
-  background: var(--paper);
-}
-.inner { border: 2px solid var(--ink); }
-hr { border: 0; border-top: 3px solid var(--ink); margin: 0; }
+.figure { margin: 0; width: 100%; }
+.figure svg { display: block; width: 100%; height: auto; }
 
-.masthead {
-  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
-  padding: 1.25rem 1.5rem;
-}
-.wordmark { margin: 0; display: flex; flex-direction: column; line-height: 1; font-weight: 400; }
-.wordmark .line1 {
-  font-size: clamp(1.7rem, 7vw, 4rem);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
-.wordmark .line2 {
-  font-size: clamp(1rem, 4vw, 2.2rem);
-  letter-spacing: .42em;
-  text-transform: uppercase;
-  margin-top: .25em;
-  padding-left: .1em;
-}
-.mark { width: clamp(56px, 14vw, 96px); height: auto; flex-shrink: 0; }
-.wordmark { min-width: 0; }
-@media (max-width: 480px) {
-  .masthead { gap: 1rem; padding: 1rem; }
-  .wordmark .line1 { letter-spacing: .09em; }
-  .wordmark .line2 { letter-spacing: .34em; }
+.slab { fill: var(--slab); stroke: var(--line); stroke-width: 1.2; }
+.normal { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 5; opacity: .35; }
+.ray { stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.beam { stroke: var(--line); }
+.disp { stroke-width: 1.4; opacity: .7; }
+.disp.r { stroke: var(--r); }
+.disp.g { stroke: var(--g); }
+.disp.b { stroke: var(--b); }
+
+/* draw-in */
+.beam { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: draw 2.2s cubic-bezier(.6,0,.2,1) .2s forwards; }
+.disp { stroke-dasharray: 340; stroke-dashoffset: 340; animation: draw 1.2s ease-out 1.9s forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .beam, .disp { animation: none; stroke-dashoffset: 0; }
 }
 
-.illustration { margin: 0; padding: 1.25rem 1.5rem .75rem; }
-.illustration svg { display: block; width: 100%; height: auto; }
-
-.motto { text-align: center; padding: 1.1rem 1.5rem; }
-.est {
+.brand h1 {
   margin: 0;
-  font-size: 1.1rem;
-  letter-spacing: .32em;
-  text-transform: uppercase;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-align: center;
 }
-
-footer {
-  margin-top: 1rem;
-  font-size: .95rem;
-  letter-spacing: .06em;
-  text-transform: uppercase;
+.foot {
+  align-self: end;
+  padding-top: 2rem;
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .02em;
+  color: var(--muted);
+  text-align: center;
 }
