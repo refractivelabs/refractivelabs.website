@@ -100,6 +100,5 @@ body {
   color: var(--muted); text-align: center;
 }
 .foot p { margin: 0 0 .35rem; }
-.foot-desc { color: var(--ink); font-weight: 300; font-size: .95rem; margin-bottom: 1rem !important; }
 .foot a { color: inherit; text-decoration: underline; text-underline-offset: .2em; text-decoration-color: var(--muted); }
 .foot-copy { margin-top: 1.2rem !important; }
