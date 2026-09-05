@@ -152,3 +152,18 @@ body {
 .copy:hover { color: var(--ink); border-color: var(--ink); }
 .foot-links { margin-bottom: 1rem !important; }
 .foot-links a { color: var(--ink); font-weight: 300; font-size: .95rem; text-decoration: none; border-bottom: 1px solid var(--muted); }
+
+/* ---- mesh (tester) ---- */
+.meshpage { padding: 2vh 3vw 4vh; display: flex; justify-content: center; }
+.meshfig { width: min(100%, 1100px); margin: 0; }
+.meshfig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.meshfig .light { stroke-width: 4; }
+.meshfig .wg { stroke-width: 1; opacity: .8; }
+.heater.mh { opacity: .5; }
+.port { fill: var(--bg); stroke: var(--muted); stroke-width: 1.2; cursor: pointer; }
+.port:hover { stroke: var(--ink); }
+.port.on { fill: var(--ink); stroke: var(--ink); }
+.obar { opacity: .85; }
+.meshfig .spec line { stroke: var(--line); opacity: .3; }
+.sline { fill: none; stroke-width: 1.2; opacity: .8; }
+.cursor { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; opacity: .7; }
