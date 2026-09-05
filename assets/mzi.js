@@ -12,7 +12,7 @@
   'use strict';
   const NS = 'http://www.w3.org/2000/svg';
   const $ = (id) => document.getElementById(id);
-  const svg = $('mzi'), fig = $('mziFig'), menu = $('menu'), hint = $('mziHint'), readout = $('readout');
+  const svg = $('mzi'), fig = $('mziFig'), menu = $('menu'), vfdSvg = $('vfd');
   const lightL = getComputedStyle(document.documentElement).getPropertyValue('--glow-l').trim() || '58%';
   const COL = 'hsl(200 90% ' + lightL + ')';
   const S2 = Math.SQRT1_2;
@@ -68,7 +68,6 @@
       pn: { name: 'PN phase shifter', draw: () => ({
         wg: ['M300 ' + y + ' H500'],
         extra: [rect(360, y - 12, 80, 8, 'dope p'), rect(360, y + 4, 80, 8, 'dope n'),
-                text(352, y - 5, 'p', 'lbl'), text(352, y + 11, 'n', 'lbl'),
                 path('M400 ' + (y - 12) + ' v' + (up ? -16 : -16) + ' M400 ' + (y + 12) + ' v16', 'wg')] }),
         fn: (E, d) => scale(mul(E, expi(Math.PI * d)), 0.944), drive: (d) => d, label: (d) => 'φ = ' + d.toFixed(2) + 'π · 0.5 dB' },
       ring: { name: 'Ring resonator', draw: () => ({
@@ -120,7 +119,57 @@
   const text = (x, y, s, cls, anchor) => { const e = el('text', { x, y, 'text-anchor': anchor || 'start' }, cls); e.textContent = s; return e; };
 
   let lights = {};      // key -> [elements]
-  let labels = {};
+
+  // ---- vacuum-fluorescent style seven-segment display ----
+  const vfd = (function () {
+    // segment layout for a 20x34 cell: a b c d e f g, plus dp
+    const SEG = {
+      a: 'M3 0 h14 l-2.5 2.5 h-9 z', b: 'M20 1 v14 l-2.5 -2.5 v-9 z', c: 'M20 19 v14 l-2.5 -2.5 v-9 z',
+      d: 'M3 34 h14 l-2.5 -2.5 h-9 z', e: 'M0 19 v14 l2.5 -2.5 v-9 z', f: 'M0 1 v14 l2.5 -2.5 v-9 z',
+      g: 'M3 17 h14 l-2 1.6 h-10 z M3 17 h14 l-2 -1.6 h-10 z'
+    };
+    const MAP = { '0': 'abcdef', '1': 'bc', '2': 'abdeg', '3': 'abcdg', '4': 'bcfg', '5': 'acdfg', '6': 'acdefg', '7': 'abc', '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': '' };
+    const fields = [
+      { label: 'OUT 1', x: 40 }, { label: 'OUT 2', x: 220 }, { label: 'PHASE  π', x: 400 }, { label: 'LOSS  dB', x: 580 }
+    ];
+    const CELLS = 4, CW = 26, DY = 22;
+    const cells = [];
+    const g = el('g');
+    vfdSvg.innerHTML = '';
+    const defs = el('defs'); defs.innerHTML =
+      '<filter id="vglow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+      '<linearGradient id="vglass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".06"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>';
+    vfdSvg.appendChild(defs);
+    vfdSvg.appendChild(rect(0, 0, 760, 104, 'vfd-panel'));
+    vfdSvg.appendChild(rect(0, 0, 760, 104, 'vfd-glass'));
+    fields.forEach((f, fi) => {
+      const fg = el('g', { transform: 'translate(' + f.x + ',' + DY + ')' });
+      const row = [];
+      for (let i = 0; i < CELLS; i++) {
+        const cg = el('g', { transform: 'translate(' + (i * CW) + ',0)' });
+        const segs = {};
+        for (const k in SEG) { const pth = path(SEG[k], 'seg'); cg.appendChild(pth); segs[k] = pth; }
+        const dp = el('circle', { cx: 23.5, cy: 33, r: 1.8 }, 'seg'); cg.appendChild(dp); segs.dp = dp;
+        fg.appendChild(cg); row.push(segs);
+      }
+      const lbl = text(0, 58, f.label, 'vfd-label'); fg.appendChild(lbl);
+      g.appendChild(fg); cells.push(row);
+    });
+    vfdSvg.appendChild(g);
+    function set(fi, str) {
+      // pack characters right-aligned; a '.' lights the dp of the preceding cell
+      const chars = [];
+      for (const ch of str) { if (ch === '.' && chars.length) chars[chars.length - 1].dp = true; else chars.push({ ch, dp: false }); }
+      while (chars.length < CELLS) chars.unshift({ ch: ' ', dp: false });
+      const row = cells[fi];
+      for (let i = 0; i < CELLS; i++) {
+        const on = MAP[chars[i].ch] || '';
+        for (const k in SEG) row[i][k].classList.toggle('on', on.indexOf(k) >= 0);
+        row[i].dp.classList.toggle('on', chars[i].dp);
+      }
+    }
+    return { set };
+  })();
   function build() {
     svg.innerHTML = '';
     const defs = el('defs'); defs.innerHTML = '<filter id="glow2" filterUnits="userSpaceOnUse" x="0" y="0" width="800" height="300"><feGaussianBlur stdDeviation="3.5"/></filter>';
@@ -129,9 +178,8 @@
     const gFlow = el('g', {}, 'flow');
     const gWg = el('g', {}, 'wg');
     const gExtra = el('g');
-    const gLbl = el('g', {}, 'lbl');
     const gHit = el('g', {}, 'hits');
-    lights = {}; labels = {};
+    lights = {};
     const addLight = (d, key, w) => {
       const a = path(d, null); a.setAttribute('stroke', COL); if (w) a.setAttribute('stroke-width', w); gLight.appendChild(a);
       const f = path(d, null); f.setAttribute('stroke', COL); gFlow.appendChild(f);
@@ -149,16 +197,11 @@
         addLight('M300 ' + y + ' H360', s.id === 'up' ? 'aU' : 'aL');
         addLight('M440 ' + y + ' H500', s.id === 'up' ? 'bU' : 'bL');
         addLight('M360 ' + y + ' H440', s.id === 'up' ? 'bU' : 'bL');
-        const t = text(400, s.id === 'up' ? 30 : 280, '', 'lbl', 'middle'); gLbl.appendChild(t); labels[s.id] = t;
       }
       const [x, y, w, h] = s.hit;
       const r = rect(x, y, w, h, 'hit'); r.dataset.slot = s.id; gHit.appendChild(r);
-      const cap = text(x + w / 2, s.id === 'lo' ? 294 : (s.id === 'up' ? 16 : y - 6), prim.name, 'lbl cap', 'middle'); gLbl.appendChild(cap);
     });
-    const comb = slots[4].opts[slots[4].sel];
-    labels.o1 = text(768, comb.outs === 2 ? 124 : 154, '', 'lbl'); gLbl.appendChild(labels.o1);
-    labels.o2 = text(768, 184, '', 'lbl'); gLbl.appendChild(labels.o2);
-    svg.append(gLight, gWg, gExtra, gFlow, gLbl, gHit);
+    svg.append(gLight, gWg, gExtra, gFlow, gHit);
     render();
   }
 
@@ -173,6 +216,11 @@
     const cb = slots[4].opts[slots[4].sel];
     const [o1, o2] = cb.fn(bU, bL);
     const p = { in: 1, aU: P(aU), aL: P(aL), bU: P(bU), bL: P(bL), o1: P(o1), o2: P(o2) };
+    // phase difference imposed by the arm elements, in units of π, wrapped to (-1, 1]
+    const ph = (Math.atan2(bU[1], bU[0]) - Math.atan2(aU[1], aU[0])) - (Math.atan2(bL[1], bL[0]) - Math.atan2(aL[1], aL[0]));
+    let phi = ph / Math.PI; phi = phi - 2 * Math.floor((phi + 1) / 2);
+    p.phi = phi;
+    p.loss = Math.max(0, -10 * Math.log10(Math.max(1e-6, p.o1 + (cb.outs === 2 ? p.o2 : 0))));
     p.cU = (1 + p.aU) / 2; p.cL = p.aL / 2;                        // splitter DC coupling region (approximate)
     p.kU = (p.bU + p.o1) / 2; p.kL = (p.bL + p.o2) / 2;            // combiner DC coupling region
     p.rU = eU.build ? Math.min(1, eU.build(d) * p.aU / 3) : 0;    // ring circulating power, normalised
@@ -183,17 +231,12 @@
   function render() {
     const p = compute(drive);
     for (const k in lights) lights[k].forEach((e) => { e.style.opacity = (0.9 * Math.min(1, p[k] || 0)).toFixed(3); });
-    const eU = slots[2].opts[slots[2].sel], eL = slots[3].opts[slots[3].sel];
-    if (labels.up) labels.up.textContent = eU.label ? eU.label(drive) : '';
-    if (labels.lo) labels.lo.textContent = eL.label ? eL.label(drive) : '';
     const heater = svg.querySelectorAll('.heater'); heater.forEach((h) => { h.style.opacity = (0.25 + 0.75 * drive).toFixed(3); });
     const comb = slots[4].opts[slots[4].sel];
-    labels.o1.textContent = p.o1.toFixed(2);
-    labels.o2.textContent = comb.outs === 2 ? p.o2.toFixed(2) : '';
-    const lost = Math.max(0, 1 - p.o1 - (comb.outs === 2 ? p.o2 : 0));
-    readout.textContent = slots.map((s) => s.opts[s.sel].name).join(' → ') +
-      '   ·   out ' + p.o1.toFixed(2) + (comb.outs === 2 ? ' / ' + p.o2.toFixed(2) : '') +
-      (lost > 0.005 ? '   ·   lost ' + lost.toFixed(2) : '');
+    vfd.set(0, p.o1.toFixed(2));
+    vfd.set(1, comb.outs === 2 ? p.o2.toFixed(2) : '-.--');
+    vfd.set(2, (p.phi < 0 ? '-' : ' ') + Math.abs(p.phi).toFixed(2));
+    vfd.set(3, p.loss.toFixed(2));
   }
 
   let last = performance.now();
@@ -238,7 +281,6 @@
     left = Math.max(0, Math.min(f.width - menu.offsetWidth, left));
     menu.style.left = left + 'px';
     menu.style.top = (r.top - f.top + (y + h) * sy + 6) + 'px';
-    if (hint) hint.style.opacity = 0;
   }
   function closeMenu() { menu.hidden = true; }
 

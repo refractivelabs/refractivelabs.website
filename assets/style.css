@@ -121,14 +121,18 @@ body {
 .careers .chapter { margin: 0 auto 4vh; }
 .mzi { width: min(100%, 760px); position: relative; touch-action: pan-y; }
 .mzi svg { overflow: visible; }
-.mzi .hint, .readout { text-align: center; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: .8rem 0 0; transition: opacity .6s; }
-.readout { text-transform: none; letter-spacing: .04em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .75rem; margin-top: .5rem; white-space: pre-wrap; }
+/* VFD */
+.vfd { display: block; width: min(100%, 760px); margin: 1.2rem auto 0; }
+.vfd-panel { fill: #0a1412; stroke: #1d2c29; stroke-width: 1; rx: 8; }
+.vfd-glass { fill: url(#vglass); rx: 8; pointer-events: none; }
+.seg { fill: #7ff7dc; opacity: .07; }
+.seg.on { opacity: 1; filter: url(#vglow); }
+.vfd-label { fill: #7ff7dc; opacity: .55; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: .25em; }
 .wg.dim, .dim { opacity: .35; }
 .heater { fill: #ff6a3d; stroke: var(--line); stroke-width: 1; opacity: .25; }
 .dope { stroke: var(--line); stroke-width: 1; }
 .dope.p { fill: rgba(255, 106, 61, .35); }
 .dope.n { fill: rgba(77, 141, 255, .35); }
-.lbl.cap { font-size: 9px; opacity: .8; }
 .hit { fill: transparent; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0; cursor: pointer; rx: 4; transition: opacity .2s; }
 .hit:hover { opacity: .7; }
 .menu { position: absolute; z-index: 5; min-width: 12rem; padding: .4rem; border-radius: 10px;
