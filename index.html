@@ -23,52 +23,13 @@
     <div class="stage">
       <figure class="figure" aria-hidden="true">
         <svg id="optics" viewBox="0 0 800 400" fill="none">
-          <defs>
-            <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="800" height="400"><feGaussianBlur stdDeviation="3.5"/></filter>
-          </defs>
-          <!-- light (glow layer, drawn under the waveguides) -->
-          <g class="light" stroke-linecap="round" filter="url(#glow)">
-            <line id="lIn"   x1="70"  y1="250" x2="400" y2="250"/>
-            <line id="lThru" x1="400" y1="250" x2="730" y2="250"/>
-            <line id="lDrop" x1="400" y1="110" x2="70"  y2="110"/>
-            <circle id="lRing" cx="400" cy="180" r="60"/>
-          </g>
-          <!-- waveguides -->
-          <g class="wg">
-            <line x1="70" y1="250" x2="730" y2="250"/>
-            <line x1="70" y1="110" x2="730" y2="110"/>
-            <circle cx="400" cy="180" r="60"/>
-          </g>
-          <!-- propagating light (moving dashes) -->
-          <g class="flow">
-            <line id="fIn"   x1="70"  y1="250" x2="400" y2="250"/>
-            <line id="fThru" x1="400" y1="250" x2="730" y2="250"/>
-            <line id="fDrop" x1="400" y1="110" x2="70"  y2="110" class="rev"/>
-            <circle id="fRing" cx="400" cy="180" r="60" class="rev"/>
-          </g>
-          <!-- grating couplers -->
-          <g class="gc">
-            <g transform="translate(70,250)"><path d="M0 0 L-22 -9 L-22 9 Z"/><path d="M-8 -3 v6 M-13 -5 v10 M-18 -7 v14"/></g>
-            <g transform="translate(730,250) scale(-1,1)"><path d="M0 0 L-22 -9 L-22 9 Z"/><path d="M-8 -3 v6 M-13 -5 v10 M-18 -7 v14"/></g>
-            <g transform="translate(70,110)"><path d="M0 0 L-22 -9 L-22 9 Z"/><path d="M-8 -3 v6 M-13 -5 v10 M-18 -7 v14"/></g>
-            <g transform="translate(730,110) scale(-1,1)"><path d="M0 0 L-22 -9 L-22 9 Z"/><path d="M-8 -3 v6 M-13 -5 v10 M-18 -7 v14"/></g>
-          </g>
-          <!-- port labels -->
-          <g class="lbl">
-            <text x="70" y="276">in</text>
-            <text x="730" y="276" text-anchor="end">through</text>
-            <text x="70" y="98">drop</text>
-          </g>
-          <!-- transmission spectrum -->
-          <g class="spec">
-            <line x1="70" y1="385" x2="730" y2="385"/>
-            <path id="sThru"/>
-            <path id="sDrop"/>
-            <line id="sCursor" x1="400" y1="318" x2="400" y2="385"/>
-            <text x="70" y="398" class="lbl">1530 nm</text>
-            <text x="730" y="398" class="lbl" text-anchor="end">1570 nm</text>
-            <text id="sLambda" x="400" y="312" class="lbl" text-anchor="middle">λ = 1550.0 nm</text>
-          </g>
+          <rect class="slab" x="340" y="70" width="120" height="260" rx="2"/>
+          <line class="normal" x1="300" y1="180" x2="500" y2="180"/>
+          <g id="spectrum"></g>
+          <line id="reflect" class="ray reflect" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="in" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="mid" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="out" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
         </svg>
       </figure>
       <header class="brand">
