@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Refractive Labs — Photonic design at the speed of light</title>
+  <meta name="description" content="Refractive Labs builds PhotonIC, an AI-powered design platform for silicon photonic chips. Design photonic interconnect components in hours, not months.">
+  <link rel="canonical" href="https://refractivelabs.com/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Refractive Labs">
+  <meta property="og:description" content="AI-powered photonic chip design. Hours, not months.">
+  <meta property="og:url" content="https://refractivelabs.com/">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Refractive Labs home">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M2 16 L14 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 16 L30 8" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 16 L30 16" stroke="var(--accent-2)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 16 L30 24" stroke="var(--accent-3)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M14 4 L14 28" stroke="currentColor" stroke-width="1.5" opacity=".5"/>
+      </svg>
+      <span>Refractive Labs</span>
+    </a>
+    <nav>
+      <a href="#problem">Why</a>
+      <a href="#product">Platform</a>
+      <a href="#results">Results</a>
+      <a href="#team">Team</a>
+      <a class="btn btn-sm" href="#contact">Get in touch</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <p class="eyebrow">PhotonIC · AI for silicon photonics</p>
+      <h1>Photonic design at the speed of light.</h1>
+      <p class="lede">PhotonIC is an AI-powered design platform for silicon photonic chips. It turns months of expert simulation and iteration into hours, so the interconnects that feed AI compute can ship as fast as the models that need them.</p>
+      <div class="cta">
+        <a class="btn" href="#contact">Talk to us</a>
+        <a class="btn btn-ghost" href="#product">See the platform</a>
+      </div>
+      <dl class="stats">
+        <div><dt>15–42×</dt><dd>faster component design</dd></div>
+        <div><dt>8 hrs</dt><dd>from spec to sign-off ready</dd></div>
+        <div><dt>&lt;$100k</dt><dd>in-house tapeouts for ground-truth data</dd></div>
+      </dl>
+    </section>
+
+    <section id="problem" class="section">
+      <p class="eyebrow">The bandwidth wall</p>
+      <h2>Compute is outrunning the wires.</h2>
+      <div class="cols">
+        <p>Interconnect bandwidth grows about 1.4× every two years. Compute grows about 3×. Every generation of AI hardware widens that gap, and silicon photonics is the only technology on a path to close it.</p>
+        <p>But photonic design is bottlenecked on people. Demand for photonics PhDs outstrips supply roughly ten to one, design cycles run 18 months or more, and over 60% of a project goes to design and verification rather than building anything new.</p>
+      </div>
+    </section>
+
+    <section id="product" class="section alt">
+      <p class="eyebrow">The platform</p>
+      <h2>Three pillars, one workflow.</h2>
+      <div class="grid3">
+        <article class="card">
+          <span class="num">01</span>
+          <h3>Proprietary data</h3>
+          <p>A synthetic data factory paired with in-house characterization runs. We tape out our own test chips for under $100k so our models learn from measured silicon, not just simulation.</p>
+        </article>
+        <article class="card">
+          <span class="num">02</span>
+          <h3>Unified workflow</h3>
+          <p>Simulation, physics models, layout, and DRC/LVS in a single environment. Design, verify, and sign off without stitching together a dozen tools.</p>
+        </article>
+        <article class="card">
+          <span class="num">03</span>
+          <h3>Adaptive intelligence</h3>
+          <p>Design models tuned per project and per process. The platform gets better on your components, your foundry, and your constraints the more you use it.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <p class="eyebrow">Results</p>
+      <h2>Hours, not months.</h2>
+      <p class="lede narrow">On photonic interconnect components, PhotonIC has taken designs that historically took 120 to 336 engineer-hours down to about 8 hours, with the physics checks and layout rules enforced along the way.</p>
+      <div class="bars" role="img" aria-label="Design time comparison: conventional 120 to 336 hours versus PhotonIC 8 hours">
+        <div class="bar-row"><span class="bar-label">Conventional</span><div class="bar-track"><div class="bar" style="width:100%"></div></div><span class="bar-val">120–336 hrs</span></div>
+        <div class="bar-row"><span class="bar-label">PhotonIC</span><div class="bar-track"><div class="bar accent" style="width:4%"></div></div><span class="bar-val">~8 hrs</span></div>
+      </div>
+    </section>
+
+    <section id="who" class="section alt">
+      <p class="eyebrow">Who it's for</p>
+      <h2>Built for teams shipping photonic silicon.</h2>
+      <div class="grid3">
+        <div class="card plain"><h3>Photonic chip teams</h3><p>Design engineers at interconnect, AI accelerator, and quantum companies who need more throughput from a small expert team.</p></div>
+        <div class="card plain"><h3>Project partners</h3><p>Companies with a defined component or PDK need who want a delivered design rather than another seat.</p></div>
+        <div class="card plain"><h3>Foundries</h3><p>Process owners who want their PDK paired with a design environment their customers can actually move fast in.</p></div>
+      </div>
+    </section>
+
+    <section id="team" class="section">
+      <p class="eyebrow">Team</p>
+      <h2>Photonics engineers and ML engineers, in the same room.</h2>
+      <div class="grid2">
+        <div class="person">
+          <h3>David Heydari, PhD</h3>
+          <p class="role">Co-founder &amp; CEO</p>
+          <p>Stanford PhD in silicon photonics. Over ten years in the field. Led tapeouts on Lightmatter's Passage M1000 photonic interconnect.</p>
+        </div>
+        <div class="person">
+          <h3>Vineet Thumuluri</h3>
+          <p class="role">Co-founder &amp; CTO</p>
+          <p>First ML hire at ChipStack, later acquired by Cadence. Previously at Microsoft Research building models for engineering design.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <p class="eyebrow">Contact</p>
+      <h2>Designing a photonic chip? Let's talk.</h2>
+      <p class="lede narrow">We work with a small number of design teams at a time. Tell us what you're building and we'll get back to you.</p>
+      <a class="btn" href="mailto:david@refractivelabs.com?subject=Refractive%20Labs%20inquiry">david@refractivelabs.com</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year">2026</span> Refractive Labs, Inc.</span>
+    <span class="mono">refractivelabs.com</span>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
