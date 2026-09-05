@@ -167,3 +167,4 @@ body {
 .meshfig .spec line { stroke: var(--line); opacity: .3; }
 .sline { fill: none; stroke-width: 1.2; opacity: .8; }
 .cursor { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; opacity: .7; }
+.meshvfd { width: 100%; margin-top: 1.5rem; }

@@ -120,56 +120,7 @@
 
   let lights = {};      // key -> [elements]
 
-  // ---- vacuum-fluorescent style seven-segment display ----
-  const vfd = (function () {
-    // segment layout for a 20x34 cell: a b c d e f g, plus dp
-    const SEG = {
-      a: 'M3 0 h14 l-2.5 2.5 h-9 z', b: 'M20 1 v14 l-2.5 -2.5 v-9 z', c: 'M20 19 v14 l-2.5 -2.5 v-9 z',
-      d: 'M3 34 h14 l-2.5 -2.5 h-9 z', e: 'M0 19 v14 l2.5 -2.5 v-9 z', f: 'M0 1 v14 l2.5 -2.5 v-9 z',
-      g: 'M3 17 h14 l-2 1.6 h-10 z M3 17 h14 l-2 -1.6 h-10 z'
-    };
-    const MAP = { '0': 'abcdef', '1': 'bc', '2': 'abdeg', '3': 'abcdg', '4': 'bcfg', '5': 'acdfg', '6': 'acdefg', '7': 'abc', '8': 'abcdefg', '9': 'abcdfg', '-': 'g', ' ': '' };
-    const fields = [
-      { label: 'OUT 1', x: 40 }, { label: 'OUT 2', x: 220 }, { label: 'PHASE  π', x: 400 }, { label: 'LOSS  dB', x: 580 }
-    ];
-    const CELLS = 4, CW = 26, DY = 22;
-    const cells = [];
-    const g = el('g');
-    vfdSvg.innerHTML = '';
-    const defs = el('defs'); defs.innerHTML =
-      '<filter id="vglow" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
-      '<linearGradient id="vglass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".06"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>';
-    vfdSvg.appendChild(defs);
-    vfdSvg.appendChild(rect(0, 0, 760, 104, 'vfd-panel'));
-    vfdSvg.appendChild(rect(0, 0, 760, 104, 'vfd-glass'));
-    fields.forEach((f, fi) => {
-      const fg = el('g', { transform: 'translate(' + f.x + ',' + DY + ')' });
-      const row = [];
-      for (let i = 0; i < CELLS; i++) {
-        const cg = el('g', { transform: 'translate(' + (i * CW) + ',0)' });
-        const segs = {};
-        for (const k in SEG) { const pth = path(SEG[k], 'seg'); cg.appendChild(pth); segs[k] = pth; }
-        const dp = el('circle', { cx: 23.5, cy: 33, r: 1.8 }, 'seg'); cg.appendChild(dp); segs.dp = dp;
-        fg.appendChild(cg); row.push(segs);
-      }
-      const lbl = text(0, 58, f.label, 'vfd-label'); fg.appendChild(lbl);
-      g.appendChild(fg); cells.push(row);
-    });
-    vfdSvg.appendChild(g);
-    function set(fi, str) {
-      // pack characters right-aligned; a '.' lights the dp of the preceding cell
-      const chars = [];
-      for (const ch of str) { if (ch === '.' && chars.length) chars[chars.length - 1].dp = true; else chars.push({ ch, dp: false }); }
-      while (chars.length < CELLS) chars.unshift({ ch: ' ', dp: false });
-      const row = cells[fi];
-      for (let i = 0; i < CELLS; i++) {
-        const on = MAP[chars[i].ch] || '';
-        for (const k in SEG) row[i][k].classList.toggle('on', on.indexOf(k) >= 0);
-        row[i].dp.classList.toggle('on', chars[i].dp);
-      }
-    }
-    return { set };
-  })();
+  const vfd = VFD(vfdSvg, [{ label: 'OUT 1', cells: 4 }, { label: 'OUT 2', cells: 4 }, { label: 'PHASE  π', cells: 4 }, { label: 'LOSS  dB', cells: 4 }], { width: 760, height: 104 });
   function build() {
     svg.innerHTML = '';
     const defs = el('defs'); defs.innerHTML = '<filter id="glow2" filterUnits="userSpaceOnUse" x="0" y="0" width="800" height="300"><feGaussianBlur stdDeviation="3.5"/></filter>';
