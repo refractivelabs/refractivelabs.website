@@ -45,6 +45,99 @@
       <h2>Light is how information wants to move.</h2>
       <p>A single strand of optical fiber carries more data than a bundle of copper the width of your arm, over longer distances, with a fraction of the energy per bit. For thirty years that was the story of the internet's backbone. It is now the story of what happens inside a data center, inside a rack, and soon inside a package.</p>
       <p>Compute has grown roughly threefold every two years. The bandwidth connecting that compute has grown by less than half that. Every generation, more of the machine's time and power is spent waiting on wires. Electrical interconnect is running into hard limits of loss, heat, and reach. Photonics is the way through.</p>
+      <figure class="chart">
+        <p class="chart-title">Compute versus the wires that feed it, 1996 to 2023</p>
+        <ul class="chart-legend"><li><span class="key s-flops"></span>Peak hardware FLOPS <span class="rate">3.0× / 2 yrs</span></li><li><span class="key s-dram"></span>DRAM bandwidth <span class="rate">1.6× / 2 yrs</span></li><li><span class="key s-ic"></span>Interconnect bandwidth <span class="rate">1.4× / 2 yrs</span></li></ul>
+        <div class="chart-wrap">
+<svg class="chart-svg" viewBox="0 0 800 470" role="img" aria-labelledby="chart-title chart-desc">
+<title id="chart-title">Scaling of peak hardware FLOPS, DRAM bandwidth and interconnect bandwidth, 1996 to 2023</title>
+<desc id="chart-desc">Log-scale chart. Peak FLOPS grow about 3 times every two years; DRAM bandwidth about 1.6 times; interconnect bandwidth about 1.4 times. Values normalised to the R10000 of 1997.</desc>
+<line class="grid" x1="74" y1="374.4" x2="772" y2="374.4"/>
+<text class="tick" x="66" y="377.9" text-anchor="end">1×</text>
+<line class="grid" x1="74" y1="282.6" x2="772" y2="282.6"/>
+<text class="tick" x="66" y="286.1" text-anchor="end">100×</text>
+<line class="grid" x1="74" y1="190.8" x2="772" y2="190.8"/>
+<text class="tick" x="66" y="194.3" text-anchor="end">10,000×</text>
+<line class="grid" x1="74" y1="99.1" x2="772" y2="99.1"/>
+<text class="tick" x="66" y="102.6" text-anchor="end">1,000,000×</text>
+<line class="axis" x1="74" y1="434.0" x2="772" y2="434.0"/>
+<text class="tick" x="74.0" y="450" text-anchor="middle">1996</text>
+<text class="tick" x="172.0" y="450" text-anchor="middle">2000</text>
+<text class="tick" x="269.9" y="450" text-anchor="middle">2004</text>
+<text class="tick" x="367.9" y="450" text-anchor="middle">2008</text>
+<text class="tick" x="465.9" y="450" text-anchor="middle">2012</text>
+<text class="tick" x="563.8" y="450" text-anchor="middle">2016</text>
+<text class="tick" x="661.8" y="450" text-anchor="middle">2020</text>
+<text class="tick" x="759.8" y="450" text-anchor="middle">2024</text>
+<line class="trend s-flops" x1="86.2" y1="353.1" x2="759.8" y2="52.1"/>
+<line class="trend s-dram" x1="86.2" y1="378.4" x2="759.8" y2="249.6"/>
+<line class="trend s-ic" x1="86.2" y1="421.9" x2="759.8" y2="329.7"/>
+<circle class="dot s-flops" cx="98.5" cy="374.4" r="4"/>
+<text class="pl" x="106.5" y="389.4" text-anchor="start">R10000</text>
+<circle class="dot s-flops" cx="233.2" cy="287.0" r="4"/>
+<text class="pl" x="225.2" y="282.0" text-anchor="end">Itanium 2</text>
+<circle class="dot s-flops" cx="429.1" cy="190.8" r="4"/>
+<text class="pl" x="421.1" y="185.8" text-anchor="end">GTX 580</text>
+<circle class="dot s-flops" cx="514.8" cy="167.6" r="4"/>
+<text class="pl" x="522.8" y="182.6" text-anchor="start">K40</text>
+<circle class="dot s-flops" cx="563.8" cy="139.7" r="4"/>
+<text class="pl" x="555.8" y="134.7" text-anchor="end">KNL</text>
+<circle class="dot s-flops" cx="612.8" cy="103.5" r="4"/>
+<text class="pl" x="604.8" y="98.5" text-anchor="end">TPUv3</text>
+<circle class="dot s-flops" cx="671.6" cy="85.2" r="4"/>
+<text class="pl" x="663.6" y="80.2" text-anchor="end">A100</text>
+<circle class="dot s-flops" cx="727.9" cy="63.4" r="4"/>
+<text class="pl" x="719.9" y="58.4" text-anchor="end">H100</text>
+<circle class="dot s-dram" cx="260.1" cy="348.8" r="4"/>
+<text class="pl" x="268.1" y="363.8" text-anchor="start">GDDR3</text>
+<circle class="dot s-dram" cx="333.6" cy="330.6" r="4"/>
+<text class="pl" x="325.6" y="325.6" text-anchor="end">GDDR4</text>
+<circle class="dot s-dram" cx="375.2" cy="319.1" r="4"/>
+<text class="pl" x="383.2" y="334.1" text-anchor="start">GDDR5</text>
+<circle class="dot s-dram" cx="554.0" cy="289.1" r="4"/>
+<text class="pl" x="562.0" y="304.1" text-anchor="start">HBM</text>
+<circle class="dot s-dram" cx="598.1" cy="278.0" r="4"/>
+<text class="pl" x="590.1" y="273.0" text-anchor="end">HBM2</text>
+<circle class="dot s-dram" cx="710.8" cy="262.1" r="4"/>
+<text class="pl" x="702.8" y="257.1" text-anchor="end">HBM2E</text>
+<circle class="dot s-ic" cx="235.6" cy="401.2" r="4"/>
+<text class="pl" x="243.6" y="416.2" text-anchor="start">PCIe 1.0a</text>
+<circle class="dot s-ic" cx="338.5" cy="387.0" r="4"/>
+<text class="pl" x="346.5" y="402.0" text-anchor="start">PCIe 2.0</text>
+<circle class="dot s-ic" cx="431.6" cy="377.6" r="4"/>
+<text class="pl" x="439.6" y="392.6" text-anchor="start">PCIe 3.0</text>
+<circle class="dot s-ic" cx="556.5" cy="359.6" r="4"/>
+<text class="pl" x="564.5" y="374.6" text-anchor="start">NVLink 1.0</text>
+<circle class="dot s-ic" cx="639.7" cy="350.0" r="4"/>
+<text class="pl" x="647.7" y="365.0" text-anchor="start">PCIe 5.0</text>
+<circle class="dot s-ic" cx="715.7" cy="327.5" r="4"/>
+<text class="pl" x="707.7" y="322.5" text-anchor="end">NVLink 4.0</text>
+<circle class="hit" cx="98.5" cy="374.4" r="14" data-name="R10000" data-series="Peak hardware FLOPS" data-year="1997" data-value="1×"/>
+<circle class="hit" cx="233.2" cy="287.0" r="14" data-name="Itanium 2" data-series="Peak hardware FLOPS" data-year="2002" data-value="80×"/>
+<circle class="hit" cx="429.1" cy="190.8" r="14" data-name="GTX 580" data-series="Peak hardware FLOPS" data-year="2010" data-value="10,000×"/>
+<circle class="hit" cx="514.8" cy="167.6" r="14" data-name="K40" data-series="Peak hardware FLOPS" data-year="2014" data-value="32,000×"/>
+<circle class="hit" cx="563.8" cy="139.7" r="14" data-name="KNL" data-series="Peak hardware FLOPS" data-year="2016" data-value="130,000×"/>
+<circle class="hit" cx="612.8" cy="103.5" r="14" data-name="TPUv3" data-series="Peak hardware FLOPS" data-year="2018" data-value="800,000×"/>
+<circle class="hit" cx="671.6" cy="85.2" r="14" data-name="A100" data-series="Peak hardware FLOPS" data-year="2020" data-value="2,000,000×"/>
+<circle class="hit" cx="727.9" cy="63.4" r="14" data-name="H100" data-series="Peak hardware FLOPS" data-year="2023" data-value="6,000,000×"/>
+<circle class="hit" cx="260.1" cy="348.8" r="14" data-name="GDDR3" data-series="DRAM bandwidth" data-year="2004" data-value="3.6×"/>
+<circle class="hit" cx="333.6" cy="330.6" r="14" data-name="GDDR4" data-series="DRAM bandwidth" data-year="2007" data-value="9×"/>
+<circle class="hit" cx="375.2" cy="319.1" r="14" data-name="GDDR5" data-series="DRAM bandwidth" data-year="2008" data-value="16×"/>
+<circle class="hit" cx="554.0" cy="289.1" r="14" data-name="HBM" data-series="DRAM bandwidth" data-year="2016" data-value="72×"/>
+<circle class="hit" cx="598.1" cy="278.0" r="14" data-name="HBM2" data-series="DRAM bandwidth" data-year="2017" data-value="126×"/>
+<circle class="hit" cx="710.8" cy="262.1" r="14" data-name="HBM2E" data-series="DRAM bandwidth" data-year="2022" data-value="280×"/>
+<circle class="hit" cx="235.6" cy="401.2" r="14" data-name="PCIe 1.0a" data-series="Interconnect bandwidth" data-year="2003" data-value="0.26×"/>
+<circle class="hit" cx="338.5" cy="387.0" r="14" data-name="PCIe 2.0" data-series="Interconnect bandwidth" data-year="2007" data-value="0.53×"/>
+<circle class="hit" cx="431.6" cy="377.6" r="14" data-name="PCIe 3.0" data-series="Interconnect bandwidth" data-year="2011" data-value="0.85×"/>
+<circle class="hit" cx="556.5" cy="359.6" r="14" data-name="NVLink 1.0" data-series="Interconnect bandwidth" data-year="2016" data-value="2.1×"/>
+<circle class="hit" cx="639.7" cy="350.0" r="14" data-name="PCIe 5.0" data-series="Interconnect bandwidth" data-year="2019" data-value="3.4×"/>
+<circle class="hit" cx="715.7" cy="327.5" r="14" data-name="NVLink 4.0" data-series="Interconnect bandwidth" data-year="2022" data-value="10×"/>
+</svg>
+          <div class="chart-tip" id="chartTip" hidden></div>
+        </div>
+        <figcaption>Adapted from Gholami, Yao, Kim, Hooper, Mahoney and Keutzer, <a href="https://arxiv.org/abs/2403.14123">“AI and Memory Wall”</a>, arXiv:2403.14123 (2024), <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</figcaption>
+        <details class="chart-data"><summary>Data</summary><table><thead><tr><th>Part</th><th>Series</th><th>Year</th><th>Relative scaling</th></tr></thead><tbody><tr><td>R10000</td><td>Peak hardware FLOPS</td><td>1997</td><td>1</td></tr><tr><td>Itanium 2</td><td>Peak hardware FLOPS</td><td>2002</td><td>80</td></tr><tr><td>GTX 580</td><td>Peak hardware FLOPS</td><td>2010</td><td>10,000</td></tr><tr><td>K40</td><td>Peak hardware FLOPS</td><td>2014</td><td>32,000</td></tr><tr><td>KNL</td><td>Peak hardware FLOPS</td><td>2016</td><td>130,000</td></tr><tr><td>TPUv3</td><td>Peak hardware FLOPS</td><td>2018</td><td>800,000</td></tr><tr><td>A100</td><td>Peak hardware FLOPS</td><td>2020</td><td>2,000,000</td></tr><tr><td>H100</td><td>Peak hardware FLOPS</td><td>2023</td><td>6,000,000</td></tr><tr><td>GDDR3</td><td>DRAM bandwidth</td><td>2004</td><td>3.6</td></tr><tr><td>GDDR4</td><td>DRAM bandwidth</td><td>2007</td><td>9</td></tr><tr><td>GDDR5</td><td>DRAM bandwidth</td><td>2008</td><td>16</td></tr><tr><td>HBM</td><td>DRAM bandwidth</td><td>2016</td><td>72</td></tr><tr><td>HBM2</td><td>DRAM bandwidth</td><td>2017</td><td>126</td></tr><tr><td>HBM2E</td><td>DRAM bandwidth</td><td>2022</td><td>280</td></tr><tr><td>PCIe 1.0a</td><td>Interconnect bandwidth</td><td>2003</td><td>0.26</td></tr><tr><td>PCIe 2.0</td><td>Interconnect bandwidth</td><td>2007</td><td>0.53</td></tr><tr><td>PCIe 3.0</td><td>Interconnect bandwidth</td><td>2011</td><td>0.85</td></tr><tr><td>NVLink 1.0</td><td>Interconnect bandwidth</td><td>2016</td><td>2.1</td></tr><tr><td>PCIe 5.0</td><td>Interconnect bandwidth</td><td>2019</td><td>3.4</td></tr><tr><td>NVLink 4.0</td><td>Interconnect bandwidth</td><td>2022</td><td>10</td></tr></tbody></table><p class="chart-note">Values are approximate, read from the published figure and normalised to the R10000 (1997). Trend lines use the rates reported in the paper.</p></details>
+      </figure>
     </section>
 
     <section class="chapter reveal">
@@ -75,5 +168,6 @@
   </footer>
 
   <script src="assets/optics.js"></script>
+  <script src="assets/chart.js"></script>
 </body>
 </html>
