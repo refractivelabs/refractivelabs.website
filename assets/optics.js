@@ -1,101 +1,71 @@
-// Scroll-driven refraction through a plane-parallel slab.
-// Physics: Snell's law n1 sin(θi) = n2 sin(θt); Cauchy dispersion n(λ) = A + B/λ²;
-// unpolarized Fresnel reflectance R = (Rs + Rp)/2 at the entry face.
+// Scroll-driven add-drop ring resonator.
+// Scroll sweeps the wavelength across 1530–1570 nm. Round-trip phase φ = 2π·n_g·L·(1/λ − 1/λ0),
+// through/drop transmission from the standard add-drop ring formulas with self-coupling t,
+// round-trip amplitude a. Colour is a pseudo-colour for the (invisible) C-band wavelength.
 (function () {
   'use strict';
   const hero = document.getElementById('hero');
   const cue = document.getElementById('cue');
-  const gSpec = document.getElementById('spectrum');
-  const rIn = document.getElementById('in');
-  const rMid = document.getElementById('mid');
-  const rOut = document.getElementById('out');
-  const rRef = document.getElementById('reflect');
+  const $ = (id) => document.getElementById(id);
+  const lIn = $('lIn'), lThru = $('lThru'), lDrop = $('lDrop'), lRing = $('lRing');
+  const fIn = $('fIn'), fThru = $('fThru'), fDrop = $('fDrop'), fRing = $('fRing');
+  const sThru = $('sThru'), sDrop = $('sDrop'), sCursor = $('sCursor'), sLambda = $('sLambda');
 
-  // Geometry in SVG units (viewBox 800x400).
-  const X0 = 340, X1 = 460;          // slab faces
-  const Y0 = 180;                    // entry point on the left face
-  const D = X1 - X0;                 // slab thickness
-  const XMIN = 30, XMAX = 770, YMIN = 10, YMAX = 390;
+  // Ring parameters (silicon, C-band).
+  const R = 5.0;                    // radius, µm
+  const NG = 4.2;                   // group index
+  const L = 2 * Math.PI * R;        // round-trip length, µm
+  const T = 0.85;                   // self-coupling coefficient (|κ|² = 1 − t² ≈ 0.28)
+  const A = 0.985;                  // round-trip amplitude transmission (loss)
+  const LAM0 = 1.550, LAM_MIN = 1.530, LAM_MAX = 1.570;  // µm
 
-  // Dispersion: exaggerated Cauchy coefficients so the spread is visible.
-  const A = 1.42, B = 0.06;          // λ in micrometres
-  const N_WHITE = A + B / (0.55 * 0.55);
-  const SPECTRUM = [
-    [0.400, '#7a3cff'], [0.440, '#3a5bff'], [0.480, '#2aa6ff'], [0.520, '#2fd07a'],
-    [0.570, '#e8d23a'], [0.610, '#ff8c2a'], [0.660, '#ff3b3b']
-  ];
-  const nOf = (lam) => A + B / (lam * lam);
+  function response(lam) {
+    const phi = 2 * Math.PI * NG * L * (1 / lam - 1 / LAM0);
+    const c = Math.cos(phi);
+    const t2 = T * T, t4 = t2 * t2, a2 = A * A;
+    const den = 1 - 2 * t2 * A * c + t4 * a2;
+    const thru = (t2 * a2 - 2 * t2 * A * c + t2) / den;
+    const drop = ((1 - t2) * (1 - t2) * A) / den;
+    const build = (1 - t2) / den;                  // circulating power / input power
+    return { thru, drop, build };
+  }
+  const BUILD_MAX = response(LAM0).build;
 
-  // Build spectral ray elements once: for each wavelength, an inside and an exit segment.
-  const specRays = SPECTRUM.map(([lam, color]) => {
-    const mk = () => {
-      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      l.setAttribute('class', 'ray disp');
-      l.setAttribute('stroke', color);
-      gSpec.appendChild(l);
-      return l;
-    };
-    return { n: nOf(lam), mid: mk(), out: mk() };
-  });
+  // Spectrum geometry.
+  const SX0 = 70, SX1 = 730, SY0 = 385, SH = 62;
+  const xOf = (lam) => SX0 + (SX1 - SX0) * (lam - LAM_MIN) / (LAM_MAX - LAM_MIN);
+  const yOf = (v) => SY0 - SH * v;
+  (function drawSpectrum() {
+    let pt = '', pd = '';
+    for (let i = 0; i <= 400; i++) {
+      const lam = LAM_MIN + (LAM_MAX - LAM_MIN) * i / 400;
+      const r = response(lam);
+      pt += (i ? 'L' : 'M') + xOf(lam).toFixed(1) + ' ' + yOf(r.thru).toFixed(1);
+      pd += (i ? 'L' : 'M') + xOf(lam).toFixed(1) + ' ' + yOf(r.drop).toFixed(1);
+    }
+    sThru.setAttribute('d', pt); sDrop.setAttribute('d', pd);
+  })();
 
-  const set = (el, x1, y1, x2, y2) => {
-    el.setAttribute('x1', x1.toFixed(2)); el.setAttribute('y1', y1.toFixed(2));
-    el.setAttribute('x2', x2.toFixed(2)); el.setAttribute('y2', y2.toFixed(2));
-  };
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const smooth = (t) => { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); };
-
-  // Ray from (x,y) in direction (dx,dy) clipped to the canvas box.
-  function clipRay(x, y, dx, dy) {
-    let t = Infinity;
-    if (dx > 0) t = Math.min(t, (XMAX - x) / dx); else if (dx < 0) t = Math.min(t, (XMIN - x) / dx);
-    if (dy > 0) t = Math.min(t, (YMAX - y) / dy); else if (dy < 0) t = Math.min(t, (YMIN - y) / dy);
-    return [x + dx * t, y + dy * t];
-  }
-
-  function fresnelR(thI, n) {
-    const s = Math.sin(thI), c = Math.cos(thI);
-    const st = s / n; if (st >= 1) return 1;
-    const ct = Math.sqrt(1 - st * st);
-    const rs = (c - n * ct) / (c + n * ct);
-    const rp = (n * c - ct) / (n * c + ct);
-    return 0.5 * (rs * rs + rp * rp);
-  }
+  const hueOf = (p) => 20 + 250 * p;                // pseudo-colour sweep: amber → red → violet
 
   function render(p) {
-    // Incidence angle sweeps from 12° to 62° with scroll progress.
-    const thI = (12 + 50 * smooth(p)) * Math.PI / 180;
-    const cI = Math.cos(thI), sI = Math.sin(thI);
-
-    // Incoming ray travels up-right; trace backwards from the entry point to the canvas edge.
-    const [ax, ay] = clipRay(X0, Y0, -cI, sI);
-    set(rIn, ax, ay, X0, Y0);
-
-    // Reflected ray at the entry face (angle of reflection = angle of incidence).
-    const [bx, by] = clipRay(X0, Y0, -cI, -sI);
-    set(rRef, X0, Y0, bx, by);
-    rRef.style.opacity = clamp(fresnelR(thI, N_WHITE) * 2.5, 0.04, 0.6).toFixed(3);
-
-    // Inside + exit for a given index. The exit ray is parallel to the incoming ray
-    // (plane-parallel slab), laterally displaced by the refraction inside.
-    const trace = (n, midEl, outEl) => {
-      const sT = sI / n;
-      const tT = sT / Math.sqrt(1 - sT * sT);          // tan(θt)
-      const yExit = Y0 - D * tT;
-      set(midEl, X0, Y0, X1, yExit);
-      const [ex, ey] = clipRay(X1, yExit, cI, -sI);
-      set(outEl, X1, yExit, ex, ey);
-    };
-
-    // White beam first, then the spectrum. Colours fade in as the white beam fades out.
-    trace(N_WHITE, rMid, rOut);
-    const k = smooth((p - 0.3) / 0.45);
-    rMid.style.opacity = rOut.style.opacity = (1 - 0.9 * k).toFixed(3);
-    specRays.forEach((r) => {
-      trace(r.n, r.mid, r.out);
-      r.mid.style.opacity = r.out.style.opacity = (0.85 * k).toFixed(3);
-    });
-
+    const lam = LAM_MIN + (LAM_MAX - LAM_MIN) * p;
+    const r = response(lam);
+    const light = getComputedStyle(document.documentElement).getPropertyValue('--glow-l').trim() || '58%';
+    const col = 'hsl(' + hueOf(p).toFixed(1) + ' 90% ' + light + ')';
+    [lIn, lThru, lDrop, lRing, fIn, fThru, fDrop, fRing, sDrop, sCursor].forEach((el) => el.setAttribute('stroke', col));
+    const ring = r.build / BUILD_MAX;
+    lIn.style.opacity = fIn.style.opacity = 0.9;
+    lThru.style.opacity = fThru.style.opacity = (0.9 * r.thru).toFixed(3);
+    lDrop.style.opacity = fDrop.style.opacity = (0.9 * r.drop).toFixed(3);
+    lRing.style.opacity = fRing.style.opacity = (0.95 * ring).toFixed(3);
+    lRing.setAttribute('stroke-width', (4 + 6 * ring).toFixed(2));
+    const x = xOf(lam).toFixed(1);
+    sCursor.setAttribute('x1', x); sCursor.setAttribute('x2', x);
+    sLambda.setAttribute('x', x);
+    sLambda.textContent = 'λ = ' + (lam * 1000).toFixed(1) + ' nm';
     if (cue) cue.style.opacity = (1 - smooth(p / 0.15)).toFixed(3);
   }
 
