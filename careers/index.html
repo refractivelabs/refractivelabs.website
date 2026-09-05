@@ -20,10 +20,9 @@
   </header>
 
   <main class="careers">
-    <figure class="figure mzi" aria-hidden="true" id="mziFig">
-      <svg id="mzi" viewBox="0 0 800 300" fill="none"></svg>
-      <div class="menu" id="menu" hidden></div>
-      <svg id="vfd" class="vfd" viewBox="0 0 760 104" aria-hidden="true"></svg>
+    <figure class="figure meshfig" id="meshFig" aria-hidden="true">
+      <svg id="mesh" viewBox="0 0 1060 560" fill="none"></svg>
+      <svg id="vfd" class="vfd meshvfd" aria-hidden="true"></svg>
     </figure>
 
     <section class="chapter">
@@ -42,6 +41,18 @@
   </footer>
 
   <script src="/assets/vfd.js"></script>
-  <script src="/assets/mzi.js"></script>
+  <script src="/assets/mesh.js"></script>
+  <script>
+    // Email: assembled at click time so the address never appears verbatim in the markup.
+    (function () {
+      var copy = document.getElementById('copyEmail');
+      if (!copy) return;
+      copy.addEventListener('click', function () {
+        var addr = ['recruiting', 'refractivelabs.com'].join('@');
+        var done = function () { copy.textContent = 'copied'; setTimeout(function () { copy.textContent = 'copy'; }, 1600); };
+        if (navigator.clipboard) navigator.clipboard.writeText(addr).then(done, done); else done();
+      });
+    })();
+  </script>
 </body>
 </html>
