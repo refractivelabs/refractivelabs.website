@@ -119,9 +119,27 @@ body {
 .topbar .home { color: var(--ink); text-decoration: none; font-weight: 400; letter-spacing: -0.02em; font-size: 1.05rem; }
 .careers { padding: 4vh 6vw 6vh; display: flex; flex-direction: column; align-items: center; gap: 3rem; }
 .careers .chapter { margin: 0 auto 4vh; }
-.mzi { width: min(100%, 720px); cursor: crosshair; touch-action: pan-y; }
-.mzi .hint { text-align: center; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .8rem; transition: opacity .6s; }
-#heater { fill: #ff6a3d; stroke: var(--line); stroke-width: 1; opacity: .25; }
+.mzi { width: min(100%, 760px); position: relative; touch-action: pan-y; }
+.mzi svg { overflow: visible; }
+.mzi .hint, .readout { text-align: center; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin: .8rem 0 0; transition: opacity .6s; }
+.readout { text-transform: none; letter-spacing: .04em; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .75rem; margin-top: .5rem; white-space: pre-wrap; }
+.wg.dim, .dim { opacity: .35; }
+.heater { fill: #ff6a3d; stroke: var(--line); stroke-width: 1; opacity: .25; }
+.dope { stroke: var(--line); stroke-width: 1; }
+.dope.p { fill: rgba(255, 106, 61, .35); }
+.dope.n { fill: rgba(77, 141, 255, .35); }
+.lbl.cap { font-size: 9px; opacity: .8; }
+.hit { fill: transparent; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 4; opacity: 0; cursor: pointer; rx: 4; transition: opacity .2s; }
+.hit:hover { opacity: .7; }
+.menu { position: absolute; z-index: 5; min-width: 12rem; padding: .4rem; border-radius: 10px;
+        background: var(--bg); border: 1px solid var(--muted); box-shadow: 0 8px 30px rgba(0,0,0,.25); display: flex; flex-direction: column; gap: .15rem; }
+.menu[hidden] { display: none; }
+.menu-title { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding: .35rem .6rem .5rem; }
+.menu button { font: inherit; font-size: .9rem; font-weight: 300; text-align: left; color: var(--ink); background: none; border: 0;
+               border-radius: 6px; padding: .45rem .6rem; cursor: pointer; }
+.menu button:hover { background: rgba(127,127,127,.15); }
+.menu button.on { font-weight: 500; }
+.menu button.on::after { content: ' ·'; color: var(--muted); }
 .email { margin-top: 2rem; font-size: 1.15rem; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
 .obf { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95rem; letter-spacing: .01em; white-space: nowrap; }
 .obf .at { color: var(--muted); }
