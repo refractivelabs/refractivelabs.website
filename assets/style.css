@@ -162,6 +162,7 @@ body {
 .seg.on { opacity: 1; filter: url(#vglow); }
 .vfd-label { fill: #7ff7dc; opacity: .55; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; letter-spacing: .25em; }
 .heater { fill: #ff6a3d; stroke: var(--line); stroke-width: 1; opacity: .25; }
+.challenge { padding-left: 1rem; border-left: 1px solid var(--muted); }
 .email { margin-top: 2rem; font-size: 1.15rem; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
 .obf { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95rem; letter-spacing: .01em; white-space: nowrap; }
 .obf .at { color: var(--muted); }
