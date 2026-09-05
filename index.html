@@ -18,32 +18,60 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <main class="page">
+  <!-- Scroll-driven hero. The tall wrapper provides scroll distance; the stage stays pinned. -->
+  <section class="hero" id="hero">
     <div class="stage">
-    <figure class="figure" aria-hidden="true">
-      <svg viewBox="0 0 800 400" fill="none">
-        <!-- slab -->
-        <rect class="slab" x="340" y="70" width="120" height="260" rx="2"/>
-        <!-- normal (dotted) -->
-        <line class="normal" x1="300" y1="180" x2="500" y2="180"/>
-        <!-- dispersion fan (faint) -->
-        <line class="ray disp r" x1="460" y1="150" x2="770" y2="54"/>
-        <line class="ray disp g" x1="460" y1="150" x2="770" y2="61"/>
-        <line class="ray disp b" x1="460" y1="150" x2="770" y2="68"/>
-        <!-- main beam: in, inside, out -->
-        <path class="ray beam" d="M40 265.7 L340 180 L460 150 L770 61.4"/>
-      </svg>
-    </figure>
-
-    <header class="brand">
-      <h1>Refractive Labs</h1>
-    </header>
+      <figure class="figure" aria-hidden="true">
+        <svg id="optics" viewBox="0 0 800 400" fill="none">
+          <rect class="slab" x="340" y="70" width="120" height="260" rx="2"/>
+          <line class="normal" x1="300" y1="180" x2="500" y2="180"/>
+          <g id="spectrum"></g>
+          <line id="reflect" class="ray reflect" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="in" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="mid" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
+          <line id="out" class="ray beam" x1="0" y1="0" x2="0" y2="0"/>
+        </svg>
+      </figure>
+      <header class="brand">
+        <h1>Refractive Labs</h1>
+      </header>
+      <p class="cue" id="cue">Scroll</p>
     </div>
+  </section>
 
-    <footer class="foot">
-      <span>&copy; <span id="year">2026</span> Refractive Labs, Inc.</span>
-    </footer>
+  <main class="essay">
+    <section class="chapter reveal">
+      <p class="eyebrow">01 &middot; Why photonics</p>
+      <h2>Light is how information wants to move.</h2>
+      <p>A single strand of optical fiber carries more data than a bundle of copper the width of your arm, over longer distances, with a fraction of the energy per bit. For thirty years that was the story of the internet's backbone. It is now the story of what happens inside a data center, inside a rack, and soon inside a package.</p>
+      <p>Compute has grown roughly threefold every two years. The bandwidth connecting that compute has grown by less than half that. Every generation, more of the machine's time and power is spent waiting on wires. Electrical interconnect is running into hard limits of loss, heat, and reach. Photonics is the way through.</p>
+    </section>
+
+    <section class="chapter reveal">
+      <p class="eyebrow">02 &middot; Why now</p>
+      <h2>The technology is ready. The demand is urgent.</h2>
+      <p>Silicon photonics has grown from a research curiosity into a manufacturable technology. Foundries run photonic processes on 300&nbsp;mm wafers. Hyperscalers deploy optical links by the million. Co-packaged optics, optical switching, and photonic compute are moving from slides to silicon.</p>
+      <p>At the same time, the need has become acute. Frontier AI models are trained across tens of thousands of accelerators, and the links between them now set the ceiling on scale, cost, and energy. The market is asking for photonic chips faster than the industry can design them.</p>
+    </section>
+
+    <section class="chapter reveal">
+      <p class="eyebrow">03 &middot; Why design must change</p>
+      <h2>We design photonic chips the way we did twenty years ago.</h2>
+      <p>A small number of specialists run slow electromagnetic simulations, tune geometries by hand, and iterate through tape-outs that each take months. A single component can consume weeks of expert time. A full chip takes more than a year. Most of that time goes to design and verification, not invention.</p>
+      <p>There are only a few thousand people in the world who can do this work, and demand for them outstrips supply many times over. Training more of them will not close the gap on any useful timescale. The tooling has to change.</p>
+      <p>Design must become faster, more automated, and grounded in measured silicon rather than approximate models, so that a small team can do what today takes a large one, and the industry can build the optical infrastructure the next decade of computing depends on.</p>
+    </section>
+
+    <section class="chapter closing reveal">
+      <p class="wordmark-small">Refractive Labs</p>
+      <p class="est">Est. 2026</p>
+    </section>
   </main>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <footer class="foot">
+    <span>&copy; <span id="year">2026</span> Refractive Labs, Inc.</span>
+  </footer>
+
+  <script src="assets/optics.js"></script>
 </body>
 </html>
