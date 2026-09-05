@@ -4,6 +4,7 @@
   --muted: #8a8f98;
   --line: #14161a;
   --slab: rgba(20, 22, 26, .045);
+  --glow-l: 46%;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 @media (prefers-color-scheme: dark) {
@@ -13,6 +14,7 @@
     --muted: #6f7580;
     --line: #eceef2;
     --slab: rgba(236, 238, 242, .06);
+    --glow-l: 60%;
   }
 }
 * { box-sizing: border-box; }
@@ -102,3 +104,29 @@ body {
 .foot p { margin: 0 0 .35rem; }
 .foot a { color: inherit; text-decoration: underline; text-underline-offset: .2em; text-decoration-color: var(--muted); }
 .foot-copy { margin-top: 1.2rem !important; }
+
+/* ---- integrated-photonics schematic (careers) ---- */
+.light { stroke-width: 6; }
+.wg { stroke: var(--line); stroke-width: 1.4; }
+.flow { stroke-width: 2.6; stroke-linecap: round; stroke-dasharray: 2 12; animation: flow 1s linear infinite; }
+.lbl { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; letter-spacing: .08em; fill: var(--muted); stroke: none; }
+@keyframes flow { to { stroke-dashoffset: -14; } }
+@media (prefers-reduced-motion: reduce) { .flow { animation: none; } }
+@media (max-width: 600px) { .lbl { font-size: 16px; } }
+
+/* ---- sub pages (careers) ---- */
+.topbar { padding: 1.4rem 6vw; }
+.topbar .home { color: var(--ink); text-decoration: none; font-weight: 400; letter-spacing: -0.02em; font-size: 1.05rem; }
+.careers { padding: 4vh 6vw 6vh; display: flex; flex-direction: column; align-items: center; gap: 3rem; }
+.careers .chapter { margin: 0 auto 4vh; }
+.mzi { width: min(100%, 720px); cursor: crosshair; touch-action: pan-y; }
+.mzi .hint { text-align: center; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .8rem; transition: opacity .6s; }
+#heater { fill: #ff6a3d; stroke: var(--line); stroke-width: 1; opacity: .25; }
+.email { margin-top: 2rem; font-size: 1.15rem; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.obf { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .95rem; letter-spacing: .01em; white-space: nowrap; }
+.obf .at { color: var(--muted); }
+.copy { font: inherit; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+        background: none; border: 1px solid var(--muted); border-radius: 999px; padding: .3rem .8rem; cursor: pointer; }
+.copy:hover { color: var(--ink); border-color: var(--ink); }
+.foot-links { margin-bottom: 1rem !important; }
+.foot-links a { color: var(--ink); font-weight: 300; font-size: .95rem; text-decoration: none; border-bottom: 1px solid var(--muted); }

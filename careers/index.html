@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Careers · Refractive Labs</title>
+  <meta name="description" content="Careers at Refractive Labs, Campbell, California.">
+  <link rel="canonical" href="https://refractivelabs.com/careers/">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#f7f6f2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1013" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="sub">
+  <header class="topbar">
+    <a class="home" href="/">Refractive Labs</a>
+  </header>
+
+  <main class="careers">
+    <figure class="figure mzi" aria-hidden="true" id="mziFig">
+      <svg id="mzi" viewBox="0 0 800 300" fill="none">
+        <defs>
+          <filter id="glow2" filterUnits="userSpaceOnUse" x="0" y="0" width="800" height="300"><feGaussianBlur stdDeviation="3.5"/></filter>
+        </defs>
+        <!-- light -->
+        <g class="light" stroke-linecap="round" filter="url(#glow2)">
+          <path id="mIn"  d="M40 150 H140"/>
+          <path id="mUp"  d="M140 150 C200 150 220 90 300 90 H500 C560 90 560 135 600 135"/>
+          <path id="mLo"  d="M140 150 C200 150 220 210 300 210 H500 C560 210 560 165 600 165"/>
+          <path id="mO1"  d="M680 135 C720 135 720 120 760 120"/>
+          <path id="mO2"  d="M680 165 C720 165 720 180 760 180"/>
+        </g>
+        <!-- heater -->
+        <rect id="heater" x="360" y="76" width="80" height="8" rx="2"/>
+        <g class="wg" id="heaterLeads"><path d="M370 76 V60 M430 76 V60"/></g>
+        <!-- waveguides -->
+        <g class="wg">
+          <path d="M40 150 H140"/>
+          <path d="M140 150 C200 150 220 90 300 90 H500 C560 90 560 135 600 135"/>
+          <path d="M140 150 C200 150 220 210 300 210 H500 C560 210 560 165 600 165"/>
+          <rect x="600" y="118" width="80" height="64" rx="2"/>
+          <path d="M680 135 C720 135 720 120 760 120"/>
+          <path d="M680 165 C720 165 720 180 760 180"/>
+        </g>
+        <!-- flow -->
+        <g class="flow">
+          <path id="fIn" d="M40 150 H140"/>
+          <path id="fUp" d="M140 150 C200 150 220 90 300 90 H500 C560 90 560 135 600 135"/>
+          <path id="fLo" d="M140 150 C200 150 220 210 300 210 H500 C560 210 560 165 600 165"/>
+          <path id="fO1" d="M680 135 C720 135 720 120 760 120"/>
+          <path id="fO2" d="M680 165 C720 165 720 180 760 180"/>
+        </g>
+        <g class="lbl">
+          <text x="400" y="52" text-anchor="middle" id="phiLbl">Δφ = 0.00 π</text>
+          <text x="640" y="200" text-anchor="middle">2×2 MMI</text>
+          <text x="768" y="124" id="p1Lbl">0.50</text>
+          <text x="768" y="184" id="p2Lbl">0.50</text>
+        </g>
+      </svg>
+      <figcaption class="hint" id="mziHint">Move across the interferometer to drive the heater</figcaption>
+    </figure>
+
+    <section class="chapter">
+      <p class="eyebrow">Careers</p>
+      <h2>Small team. Hard problems. Real silicon.</h2>
+      <p>We are a small group of photonics and machine-learning engineers in Campbell, California. We tape out our own chips, measure them, and build the tools we wish had existed when we designed them.</p>
+      <p>If the essay on our front page reads like something you have been thinking about too, we would like to hear from you. Send a note and whatever best shows your work, whether that is a paper, a repository, a layout, or a measurement.</p>
+      <p class="email"><span class="obf"><span>recruiting</span><span class="at"> &lt;at&gt; </span><span>refractivelabs.com</span></span>
+        <button type="button" class="copy" id="copyEmail" aria-label="Copy email address">copy</button></p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>1901 S Bascom Ave, Suite 830, Campbell, CA 95008</p>
+    <p class="foot-copy">&copy; <span id="year">2026</span> Refractive Labs</p>
+  </footer>
+
+  <script src="/assets/mzi.js"></script>
+</body>
+</html>
