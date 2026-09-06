@@ -8,9 +8,8 @@
   const NS = 'http://www.w3.org/2000/svg';
   const svg = document.getElementById('mesh');
   const fig = document.getElementById('meshFig');
-  const vfd = VFD(document.getElementById('vfd'),
-    [{ label: 'IN  PORT', cells: 2 }, { label: 'WAVELENGTH  nm', cells: 6 }, { label: 'PEAK  PORT', cells: 2 }, { label: 'PEAK  POWER', cells: 4 }, { label: 'EXTINCTION  dB', cells: 4 }, { label: 'HEATERS', cells: 2 }],
-    { width: 1060, height: 104 });
+  const ro = Readout(document.getElementById('readout'),
+    [{ label: 'Input port' }, { label: 'Wavelength', unit: 'nm' }, { label: 'Peak port' }, { label: 'Peak power' }, { label: 'Extinction', unit: 'dB' }, { label: 'Heaters' }]);
   const lightL = getComputedStyle(document.documentElement).getPropertyValue('--glow-l').trim() || '58%';
 
   const N = 8, LAYERS = 8, LW = 110, X0 = 80, Y0 = 50, DY = 46;
@@ -138,12 +137,12 @@
     bars.forEach((b, r) => b.setAttribute('width', (rec.out[r] * 70).toFixed(1)));
     let hi = 0, lo = 0;
     rec.out.forEach((v, r) => { if (v > rec.out[hi]) hi = r; if (v < rec.out[lo]) lo = r; });
-    vfd.set(0, String(inPort + 1));
-    vfd.set(1, (lam * 1000).toFixed(1));
-    vfd.set(2, String(hi + 1));
-    vfd.set(3, rec.out[hi].toFixed(2));
-    vfd.set(4, Math.min(99.9, 10 * Math.log10(rec.out[hi] / Math.max(1e-6, rec.out[lo]))).toFixed(1));
-    vfd.set(5, String(cells.length));
+    ro.set(0, String(inPort + 1));
+    ro.set(1, (lam * 1000).toFixed(1));
+    ro.set(2, String(hi + 1));
+    ro.set(3, rec.out[hi].toFixed(2));
+    ro.set(4, Math.min(99.9, 10 * Math.log10(rec.out[hi] / Math.max(1e-6, rec.out[lo]))).toFixed(1));
+    ro.set(5, String(cells.length));
     // spectrum
     const d = specPaths.map(() => '');
     for (let k = 0; k <= NPTS; k++) {
