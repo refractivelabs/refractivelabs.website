@@ -3,6 +3,7 @@
   --ink: #14161a;
   --muted: #8a8f98;
   --line: #14161a;
+  --grid: rgba(20, 22, 26, .55);
   --slab: rgba(20, 22, 26, .045);
   --glow-l: 46%;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -13,6 +14,7 @@
     --ink: #eceef2;
     --muted: #6f7580;
     --line: #eceef2;
+    --grid: rgba(255, 255, 255, .85);
     --slab: rgba(236, 238, 242, .06);
     --glow-l: 60%;
   }
@@ -37,7 +39,34 @@ body {
   gap: 2rem;
   padding: 0 6vw;
 }
-.figure { margin: 0; width: min(100%, 720px); }
+.figure { margin: 0; width: min(100%, 720px); position: relative; z-index: 1; }
+.brand { position: relative; z-index: 1; }
+.cue { z-index: 1; }
+
+/* ---- perspective floor grid ---- */
+.floor {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 50vh;
+  overflow: hidden; pointer-events: none;
+  perspective: 36vh; perspective-origin: 50% 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 40%, #000 72%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 40%, #000 72%, #000 100%);
+  z-index: 0;
+}
+.floor-plane {
+  position: absolute; left: -150%; right: -150%; bottom: 0;
+  height: 900%;
+  transform-origin: 50% 100%;
+  transform: rotateX(80deg);
+  --cell: 76px;
+  background-image:
+    linear-gradient(to right, var(--grid) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, var(--grid) 1.5px, transparent 1.5px);
+  background-size: var(--cell) var(--cell);
+  background-position: 50% var(--gy, 0px);
+  will-change: background-position;
+}
+@media (max-width: 640px) { .floor-plane { --cell: 52px; } }
 .figure svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .slab { fill: var(--slab); stroke: var(--line); stroke-width: 1.2; }
@@ -55,6 +84,7 @@ body {
   letter-spacing: -0.03em;
   line-height: 1;
   text-align: center;
+  text-shadow: 0 0 28px var(--bg), 0 0 14px var(--bg), 0 0 6px var(--bg);
 }
 .cue {
   position: absolute; bottom: 2rem; left: 0; right: 0;
