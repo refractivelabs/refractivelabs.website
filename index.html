@@ -21,6 +21,7 @@
   <!-- Scroll-driven hero. The tall wrapper provides scroll distance; the stage stays pinned. -->
   <section class="hero" id="hero">
     <div class="stage">
+      <canvas class="horizon" id="horizon" aria-hidden="true"></canvas>
       <figure class="figure" aria-hidden="true">
         <svg id="optics" viewBox="0 0 800 400" fill="none">
           <rect class="slab" x="340" y="70" width="120" height="260" rx="2"/>
@@ -166,6 +167,7 @@
   </footer>
 
   <script src="assets/optics.js"></script>
+  <script src="assets/grid.js"></script>
   <script src="assets/chart.js"></script>
 </body>
 </html>

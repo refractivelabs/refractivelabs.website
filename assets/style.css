@@ -37,7 +37,20 @@ body {
   gap: 2rem;
   padding: 0 6vw;
 }
-.figure { margin: 0; width: min(100%, 720px); }
+.figure { margin: 0; width: min(100%, 720px); position: relative; z-index: 1; }
+.brand { position: relative; z-index: 1; }
+.cue { z-index: 1; }
+
+/* ---- horizon grid (canvas) ----
+   The stage is always dark: the effect is a glowing horizon on black. */
+.stage {
+  --bg: #050507; --ink: #eceef2; --muted: #7a808a; --line: #eceef2;
+  --slab: rgba(236, 238, 242, .06); --glow-l: 60%;
+  background: var(--bg); color: var(--ink);
+}
+.stage .disp { mix-blend-mode: screen; }
+.horizon { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: block; width: 100%; height: 100%; }
+
 .figure svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .slab { fill: var(--slab); stroke: var(--line); stroke-width: 1.2; }
@@ -55,6 +68,7 @@ body {
   letter-spacing: -0.03em;
   line-height: 1;
   text-align: center;
+  text-shadow: 0 0 28px var(--bg), 0 0 14px var(--bg), 0 0 6px var(--bg);
 }
 .cue {
   position: absolute; bottom: 2rem; left: 0; right: 0;
