@@ -3,7 +3,6 @@
   --ink: #14161a;
   --muted: #8a8f98;
   --line: #14161a;
-  --grid: rgba(20, 22, 26, .55);
   --slab: rgba(20, 22, 26, .045);
   --glow-l: 46%;
   --sans: "Manrope", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
@@ -14,7 +13,6 @@
     --ink: #eceef2;
     --muted: #6f7580;
     --line: #eceef2;
-    --grid: rgba(255, 255, 255, .85);
     --slab: rgba(236, 238, 242, .06);
     --glow-l: 60%;
   }
@@ -43,30 +41,16 @@ body {
 .brand { position: relative; z-index: 1; }
 .cue { z-index: 1; }
 
-/* ---- perspective floor grid ---- */
-.floor {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  height: 50vh;
-  overflow: hidden; pointer-events: none;
-  perspective: 36vh; perspective-origin: 50% 0;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 40%, #000 72%, #000 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 40%, #000 72%, #000 100%);
-  z-index: 0;
+/* ---- horizon grid (canvas) ----
+   The stage is always dark: the effect is a glowing horizon on black. */
+.stage {
+  --bg: #050507; --ink: #eceef2; --muted: #7a808a; --line: #eceef2;
+  --slab: rgba(236, 238, 242, .06); --glow-l: 60%;
+  background: var(--bg); color: var(--ink);
 }
-.floor-plane {
-  position: absolute; left: -150%; right: -150%; bottom: 0;
-  height: 900%;
-  transform-origin: 50% 100%;
-  transform: rotateX(80deg);
-  --cell: 76px;
-  background-image:
-    linear-gradient(to right, var(--grid) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, var(--grid) 1.5px, transparent 1.5px);
-  background-size: var(--cell) var(--cell);
-  background-position: 50% var(--gy, 0px);
-  will-change: background-position;
-}
-@media (max-width: 640px) { .floor-plane { --cell: 52px; } }
+.stage .disp { mix-blend-mode: screen; }
+.horizon { position: absolute; inset: 0; z-index: 0; pointer-events: none; display: block; width: 100%; height: 100%; }
+
 .figure svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .slab { fill: var(--slab); stroke: var(--line); stroke-width: 1.2; }
