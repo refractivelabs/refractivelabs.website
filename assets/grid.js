@@ -1,7 +1,7 @@
 // Horizon grid, after the 1990 Bandai "Emotion" ident: a glowing horizon on black,
 // scanlines racing toward it on a floor and a mirrored ceiling, faint radials
-// fanning from the vanishing point. Lines move toward the viewer with time and
-// advance with scroll.
+// vertical floor lines converging on the vanishing point. Lines drift toward the
+// viewer with time; scrolling does not touch the grid.
 (function () {
   const cv = document.getElementById('horizon');
   const hero = document.getElementById('hero');
@@ -14,8 +14,9 @@
   const CELL = 0.32;       // spacing between scanlines (world units)
   const NEAR = 0.9, FAR = 60;
   const MIN_GAP = 3;       // px: drop lines that would land closer than this
+  const XCELL = 0.55;      // spacing between vertical floor lines (world units)
+  const NX = 30;           // vertical lines each side of center
   const SPEED = reduce ? 0 : 0.5;   // world units per second
-  const SCROLL = 0.002;             // world units per px scrolled
 
   let W = 0, H = 0, dpr = 1;
   function resize() {
@@ -51,16 +52,15 @@
     g.addColorStop(0, 'rgba(255,110,50,.22)'); g.addColorStop(1, 'rgba(255,60,60,0)');
     ctx.fillStyle = g; ctx.fillRect(0, hy, W, H * 0.14);
 
-    // Radials fanning from the vanishing point.
-    ctx.lineWidth = 1;
-    for (let i = -12; i <= 12; i++) {
-      if (i === 0) continue;
-      const xn = cx + f * (i * 1.3) / NEAR;
-      const a = 0.12 * (1 - Math.abs(i) / 14);
-      ctx.strokeStyle = `rgba(255,140,110,${a})`;
-      ctx.beginPath(); ctx.moveTo(cx, hy); ctx.lineTo(xn, hy + f * CAM / NEAR); ctx.stroke();
-      ctx.strokeStyle = `rgba(220,110,255,${a * 0.7})`;
-      ctx.beginPath(); ctx.moveTo(cx, hy); ctx.lineTo(xn, hy - f * CAM / NEAR); ctx.stroke();
+    // Vertical grid lines on the floor: world x = i * XCELL, converging on the
+    // vanishing point. Alpha fades with distance from the center line.
+    const yNear = hy + f * CAM / NEAR;
+    for (let i = -NX; i <= NX; i++) {
+      const xn = cx + f * (i * XCELL) / NEAR;
+      const t = Math.abs(i) / NX;
+      const rgb = mix(FLOOR[0], FLOOR[1], 0.5);
+      ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${0.55 * (1 - 0.6 * t)})`;
+      ctx.beginPath(); ctx.moveTo(cx, hy); ctx.lineTo(xn, yNear); ctx.stroke();
     }
 
     // Scanlines on floor and ceiling. Lines flow toward the viewer as `off` grows.
@@ -89,8 +89,7 @@
   const t0 = performance.now();
   function frame(now) {
     const heroRange = Math.max(1, hero.offsetHeight - window.innerHeight);
-    const sy = Math.min(window.scrollY, heroRange);
-    draw(((now - t0) / 1000) * SPEED + sy * SCROLL);
+    draw(((now - t0) / 1000) * SPEED);
     if (window.scrollY < heroRange + window.innerHeight) requestAnimationFrame(frame);
     else setTimeout(() => requestAnimationFrame(frame), 250);
   }
