@@ -212,3 +212,33 @@ body {
 .meshfig .spec line { stroke: var(--line); opacity: .3; }
 .sline { fill: none; stroke-width: 1.2; opacity: .8; }
 .cursor { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 3; opacity: .7; }
+
+/* ---- open roles (careers) ---- */
+.roles { margin: 2.4rem 0 2.6rem; }
+.roles h3, .role h3 {
+  margin: 0 0 .9rem; font-size: .75rem; font-weight: 400;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--muted);
+}
+.role-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--muted); }
+.role-list li { border-bottom: 1px solid var(--muted); }
+.role-list a {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+  padding: 1rem 0; color: var(--ink); text-decoration: none;
+}
+.role-name { display: block; font-weight: 400; letter-spacing: -0.01em; }
+.role-meta { display: block; font-size: .85rem; color: var(--muted); line-height: 1.5; }
+.role-go { flex: none; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.role-list a:hover .role-go, .role-list a:focus-visible .role-go { color: var(--ink); }
+.role-list a:hover .role-name { text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+
+/* ---- role description pages ---- */
+.role .back { font-size: .85rem; margin-bottom: 2.4rem; }
+.role .back a, .role-apply a { color: inherit; text-decoration: underline; text-underline-offset: .2em; text-decoration-color: var(--muted); }
+.role h2 { margin-bottom: .6em; }
+.role .role-facts { color: var(--muted); font-size: .95rem; margin-bottom: 2.6rem; }
+.role h3 { margin-top: 2.8rem; }
+.role ul { margin: 0 0 1.2em; padding-left: 1.1em; }
+.role li { margin: 0 0 .7em; padding-left: .2em; }
+.role li::marker { color: var(--muted); }
+.role strong { font-weight: 500; }
+.role-apply { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--muted); }
