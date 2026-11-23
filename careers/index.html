@@ -29,6 +29,19 @@
       <p class="eyebrow">Careers</p>
       <h2>Small team. Hard problems. Real silicon.</h2>
       <p>We are a small group of photonics and machine-learning engineers in Campbell, California. We design photonic chips, tape them out, and measure them, and we use machine learning to speed up the design work.</p>
+      <div class="roles" id="open-roles">
+        <h3>Open roles</h3>
+        <ul class="role-list">
+          <li><a href="/careers/ai-agents-ml-systems/">
+            <span><span class="role-name">Member of Technical Staff, AI Agents &amp; ML Systems</span>
+            <span class="role-meta">Campbell, CA</span></span>
+            <span class="role-go" aria-hidden="true">Read &rarr;</span></a></li>
+          <li><a href="/careers/data-evaluations/">
+            <span><span class="role-name">Member of Technical Staff, Data &amp; Evaluations</span>
+            <span class="role-meta">Campbell, CA</span></span>
+            <span class="role-go" aria-hidden="true">Read &rarr;</span></a></li>
+        </ul>
+      </div>
       <p>If the essay on our front page reads like something you have been thinking about too, we would like to hear from you. Send a note and whatever best shows your work, whether that is a paper, a repository, a model, a layout, or a measurement.</p>
       <p class="challenge">One more thing. The mesh above drifts: its heaters wander, and the outputs wander with them. Tell us how you would lock it. Sensing, control, calibration, architecture, whatever you would actually build. Or how would you use AI to automate the design of a system like this? Pick whichever question interests you. There is no single right answer, and we read every one.</p>
       <p class="email"><span class="obf"><span>recruiting</span><span class="at"> &lt;at&gt; </span><span>refractivelabs.com</span></span>
@@ -43,17 +56,6 @@
 
   <script src="/assets/readout.js"></script>
   <script src="/assets/mesh.js"></script>
-  <script>
-    // Email: assembled at click time so the address never appears verbatim in the markup.
-    (function () {
-      var copy = document.getElementById('copyEmail');
-      if (!copy) return;
-      copy.addEventListener('click', function () {
-        var addr = ['recruiting', 'refractivelabs.com'].join('@');
-        var done = function () { copy.textContent = 'copied'; setTimeout(function () { copy.textContent = 'copy'; }, 1600); };
-        if (navigator.clipboard) navigator.clipboard.writeText(addr).then(done, done); else done();
-      });
-    })();
-  </script>
+  <script src="/assets/email.js"></script>
 </body>
 </html>
