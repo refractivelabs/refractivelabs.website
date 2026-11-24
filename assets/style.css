@@ -242,3 +242,4 @@ body {
 .role li::marker { color: var(--muted); }
 .role strong { font-weight: 500; }
 .role-apply { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--muted); }
+.role-eeo { margin-top: 3rem !important; font-size: .85rem; line-height: 1.6; color: var(--muted); }
